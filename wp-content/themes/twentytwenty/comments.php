@@ -1,18 +1,15 @@
 <?php
-
-// The template file for displaying comments and comment form for the Twenty Twenty theme.
+// If the current post is protected by a password and the visitor has not yet entered the password, return early without loading the comments.
 if (post_password_required()) {
 	return;
 }
 
 if ($comments) {
 ?>
-
 	<div class="comments" id="comments">
 		<?php
 		$comments_number = get_comments_number();
 		?>
-
 		<div class="comments-header section-inner small max-percentage">
 			<h2 class="comment-reply-title">
 				<?php
@@ -22,7 +19,6 @@ if ($comments) {
 					printf(_x('One reply on &ldquo;%s&rdquo;', 'comments title', 'twentytwenty'), get_the_title());
 				} else {
 					printf(
-
 						_nx(
 							'%1$s reply on &ldquo;%2$s&rdquo;',
 							'%1$s replies on &ldquo;%2$s&rdquo;',
@@ -42,18 +38,17 @@ if ($comments) {
 			<?php
 			wp_list_comments(
 				array(
-					'walker'      => new TwentyTwenty_Walker_Comment(),
+					'walker' => new TwentyTwenty_Walker_Comment(),
 					'avatar_size' => 120,
-					'style'       => 'div',
+					'style' => 'div',
 				)
 			);
 
-			// Pagination for comments
 			$comment_pagination = paginate_comments_links(
 				array(
-					'echo'      => false,
-					'end_size'  => 0,
-					'mid_size'  => 0,
+					'echo' => false,
+					'end_size' => 0,
+					'mid_size' => 0,
 					'next_text' => __('Newer Comments', 'twentytwenty') . ' <span aria-hidden="true">&rarr;</span>',
 					'prev_text' => '<span aria-hidden="true">&larr;</span> ' . __('Older Comments', 'twentytwenty'),
 				)
@@ -61,6 +56,7 @@ if ($comments) {
 
 			if ($comment_pagination) {
 				$pagination_classes = '';
+
 				if (false === strpos($comment_pagination, 'prev page-numbers')) {
 					$pagination_classes = ' only-next';
 				}
@@ -73,36 +69,44 @@ if ($comments) {
 			?>
 		</div>
 	</div>
-
 <?php
 }
 
-// New form section
 if (comments_open() || pings_open()) {
 	if ($comments) {
 		echo '<hr class="styled-separator is-style-wide" aria-hidden="true" />';
 	}
 ?>
 
-	<!-- Post Form Begins -->
+	<!-- Custom Post Form Begins -->
 	<section class="card">
 		<div class="card-body">
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
 					<div class="form-group">
-						<label class="sr-only" for="message">Make a Post</label>
+						<label class="sr-only" for="comment">Make a Post</label>
 						<div class="form-area">
-							<textarea class="form-control" id="message" rows="3" placeholder="What are you thinking..."></textarea>
-							<div class="text-right">
-								<button type="submit" class="btn btn-primary">Share</button>
-							</div>
+							<?php
+							// Custom Comment Form Fields
+							comment_form(
+								array(
+									'title_reply' => '', // Remove title	
+									'comment_field' => '<textarea id="comment" name="comment" class="form-control" rows="3" placeholder="What are you thinking..."></textarea>',
+									'submit_button' => '<div class="text-right"><button type="submit" class="btn btn-primary">Share</button></div>',
+									'class_form' => '', // Remove WordPress default form class
+									'logged_in_as' => '', // Loại bỏ dòng "Logged in as..."
+									'title_reply_before' => '',
+									'title_reply_after' => '</h2>',
+								)
+							);
+							?>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!-- Post Form Ends -->
+	<!-- Custom Post Form Ends -->
 
 <?php
 } elseif (is_single()) {
@@ -110,11 +114,9 @@ if (comments_open() || pings_open()) {
 		echo '<hr class="styled-separator is-style-wide" aria-hidden="true" />';
 	}
 ?>
-
 	<div class="comment-respond" id="respond">
 		<p class="comments-closed"><?php _e('Comments are closed.', 'twentytwenty'); ?></p>
 	</div>
-
 <?php
 }
 ?>
@@ -127,6 +129,7 @@ if (comments_open() || pings_open()) {
 		border-radius: 5px;
 		border: 1px solid #D4D4D4;
 	}
+
 
 	.card-body {
 		padding: 20px 0;
