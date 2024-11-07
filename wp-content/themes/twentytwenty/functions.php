@@ -857,26 +857,26 @@ class Custom_Page_List_Widget extends WP_Widget
 		// Query Pages
 		$pages = get_pages();
 		if ($pages) {
-			echo '<ul>';
+			// Đổi tên class ul và li để tránh trùng
+			echo '<ul class="custom-widget-list">';  // Thay đổi tên class ở đây
 			foreach ($pages as $page) {
 				// Lấy ảnh đại diện
 				$thumbnail = get_the_post_thumbnail($page->ID, 'thumbnail');
 				// Lấy nội dung ngắn (excerpt)
 				$excerpt = wp_trim_words($page->post_content, 20); // Lấy 20 từ đầu tiên của nội dung
 
-				echo '<li>';
+				echo '<li class="custom-widget-item">';  // Thay đổi tên class ở đây
+				echo '<a href="' . get_permalink($page->ID) . '" class="custom-widget-link">' . $page->post_title . '</a>';  // Thay đổi tên class ở đây
+				echo '<div class="custom-widget-gach"></div>';  // Thay đổi tên class ở đây
 
 				// Hiển thị ảnh đại diện nếu có
 				if ($thumbnail) {
-					echo '<div class="page-thumbnail">' . $thumbnail . '</div>';
+					echo '<div class="custom-widget-thumbnail">' . $thumbnail . '</div>';  // Thay đổi tên class ở đây
 				}
-
-				// Hiển thị tiêu đề của trang
-				echo '<a href="' . get_permalink($page->ID) . '">' . $page->post_title . '</a>';
 
 				// Hiển thị nội dung ngắn (excerpt)
 				if ($excerpt) {
-					echo '<p class="page-excerpt">' . $excerpt . '...</p>';
+					echo '<p class="custom-widget-excerpt">' . $excerpt . '...</p>';  // Thay đổi tên class ở đây
 				}
 
 				echo '</li>';
@@ -886,6 +886,8 @@ class Custom_Page_List_Widget extends WP_Widget
 
 		echo $args['after_widget'];
 	}
+
+
 
 
 	public function form($instance)
@@ -912,6 +914,6 @@ function register_custom_page_list_widget()
 add_action('widgets_init', 'register_custom_page_list_widget');
 function enqueue_custom_widget_admin_styles()
 {
-	wp_enqueue_style('custom-widget-pages', get_template_directory_uri() . '/css/custom-widget-pages.css');
+	wp_enqueue_style('custom-widget-pages', get_template_directory_uri() . '/custom-widget-pages.css');
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_widget_admin_styles');
