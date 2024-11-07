@@ -1,0 +1,67 @@
+/* Định dạng tổng thể cho danh sách các trang */
+.widget ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Khoảng cách giữa các mục */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.widget ul li {
+    width: calc(33.333% - 20px); /* Chia đều 3 mục trên mỗi dòng */
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Định dạng tiêu đề trang */
+.widget ul li a {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Định dạng hình ảnh đại diện */
+.page-thumbnail {
+    margin-bottom: 10px;
+}
+
+.page-thumbnail img {
+    width: 100%;
+    height: auto;
+    max-height: 150px; /* Giới hạn chiều cao của ảnh để đồng bộ */
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Định dạng nội dung ngắn (excerpt) */
+.page-excerpt {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+/* Định dạng đường phân cách nhỏ dưới tiêu đề (nếu cần) */
+.widget ul li a::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 2px;
+    background-color: #333;
+    margin: 5px auto;
+}
+
+/* Responsive: Chuyển sang 1 bài trên dòng khi màn hình nhỏ */
+@media (max-width: 768px) {
+    .widget ul li {
+        width: 100%; /* Chiếm toàn bộ chiều rộng màn hình */
+    }
+}
