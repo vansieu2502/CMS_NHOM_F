@@ -1,0 +1,68 @@
+/* Định dạng tổng thể cho danh sách các trang */
+.custom-widget-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-content: start;
+    align-items: stretch; 
+}
+
+/* Định dạng các mục li */
+.custom-widget-list li {
+    width: calc(33.333% - 13.33px); /* Chiều rộng mỗi mục */
+    box-sizing: border-box;
+    text-align: left; /* Căn trái chữ */
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+/* Định dạng liên kết */
+.custom-widget-list li a {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+
+/* Định dạng hình ảnh đại diện */
+.custom-widget-thumbnail {
+    margin-bottom: 10px;
+}
+
+.custom-widget-thumbnail img {
+    width: 100%;
+    height: auto;
+    max-height: 150px; 
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Định dạng nội dung ngắn (excerpt) */
+.custom-widget-excerpt {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+/* Định dạng đường phân cách nhỏ dưới tiêu đề (nếu cần) */
+.custom-widget-gach {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background-color: #333;
+    margin-bottom: 20px;
+}
+
+/* Responsive: Chuyển sang 1 bài trên dòng khi màn hình nhỏ */
+@media (max-width: 1024px) {
+    .custom-widget-list li {
+        width: 100%; /* Chiếm toàn bộ chiều rộng màn hình */
+    }
+}
