@@ -812,3 +812,4 @@ function twentytwenty_get_elements_array() {
 	
 }
 
+

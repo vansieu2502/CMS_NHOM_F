@@ -157,7 +157,7 @@ get_header();
 		top: 50%;
 		left: 10px;
 		transform: translateY(-50%);
-		
+
 	}
 </style>
 
