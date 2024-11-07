@@ -89,12 +89,12 @@ function custom_comment_content_only($comment, $args, $depth)
 
 	.comments .content {
 
-
+		
 		height: auto;
 
 		color: #3188d4;
 		font-size: 1.8em;
-		margin-left: 200px;
+		margin-left: 215px;
 		padding-top: 2rem !important;
 
 	}
