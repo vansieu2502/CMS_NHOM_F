@@ -834,7 +834,6 @@ function twentytwenty_get_elements_array()
 	return apply_filters('twentytwenty_get_elements_array', $elements);
 }
 
-
 class Custom_Archives_Widget extends WP_Widget
 {
 	function __construct()
@@ -854,24 +853,39 @@ class Custom_Archives_Widget extends WP_Widget
 		$after_widget = isset($args['after_widget']) ? $args['after_widget'] : '</div>';
 
 		echo $before_widget; // Phần mở đầu của widget (nếu có)
-
+		echo '<p class="widget-title">Xem nhiều</p>';
 		// Truy vấn các bài viết
 		$args = array(
-			'posts_per_page' => -1, // Hiển thị tất cả bài viết
-			'orderby' => 'date',    // Sắp xếp theo ngày đăng bài
-			'order' => 'DESC',      // Theo thứ tự giảm dần (mới nhất trước)
+			'posts_per_page' => 8, // Hiển thị tối đa 8 bài viết
+			'orderby' => 'date',   // Sắp xếp theo ngày đăng bài
+			'order' => 'DESC',     // Theo thứ tự giảm dần (mới nhất trước)
 		);
 
 		$query = new WP_Query($args); // Thực hiện truy vấn
-
 		if ($query->have_posts()) {
-			echo '<ul>';
+			echo '<div class="archive-list-container">';
+
+			$counter = 1; // Đếm số thứ tự của bài viết
+			$post_in_column = 4; // Số bài viết trong mỗi cột
+			$column_count = 1; // Biến đếm số cột
+
 			while ($query->have_posts()) {
 				$query->the_post();
-				// Hiển thị tiêu đề bài viết
-				echo '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>';
+				if ($counter == 1 || $counter == $post_in_column + 1) {
+					// Mở một cột mới khi đến bài viết đầu tiên của mỗi cột
+					if ($counter != 1) {
+						echo '</div>'; // Đóng cột trước
+					}
+					echo '<div class="archive-list">'; // Mở cột mới
+				}
+
+				// Hiển thị số thứ tự và tiêu đề bài viết
+				echo '<div class="archive-item"><span class="post-number">' . $counter . '</span><a href="' . get_permalink() . '">' . get_the_title() . '</a></div>';
+				$counter++; // Tăng số thứ tự
 			}
-			echo '</ul>';
+
+			echo '</div>'; // Đóng cột cuối cùng
+			echo '</div>'; // Đóng container
 		} else {
 			echo '<p>No posts found.</p>';
 		}
@@ -889,13 +903,10 @@ function register_custom_archives_widget()
 }
 add_action('widgets_init', 'register_custom_archives_widget');
 
+
 function enqueue_custom_styles()
 {
-	$css_url = get_template_directory_uri() . '/custom-archives-widget.css';
-
-	// In ra đường dẫn CSS
-	echo '<!-- CSS URL: ' . $css_url . ' -->';
-
-	wp_enqueue_style('custom-archive-widget-style', $css_url, array(), null, 'all');
+	// Đảm bảo đường dẫn đến CSS chính xác
+	wp_enqueue_style('custom-archive-widget-style', get_template_directory_uri() . '/custom-archives-widget.css', array(), null, 'all');
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_styles');
