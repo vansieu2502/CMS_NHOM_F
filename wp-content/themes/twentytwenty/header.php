@@ -20,9 +20,13 @@
 
 		<link rel="profile" href="https://gmpg.org/xfn/11">
 
-		<?php wp_head(); ?>
 
-	</head>
+	<?php wp_head(); ?>
+
+
+	<link rel="stylesheet" id="custom-archive-widget-style-css" href="http://yourdomain.com/wp-content/themes/twentytwenty/custom-archives-widget.css" type="text/css" media="all">
+	<link rel="stylesheet" id="custom-widget-pages-style-css" href="http://yourdomain.com/wp-content/themes/twentytwenty/custom-widget-pages.css" type="text/css" media="all">
+</head>
 
 	<body <?php body_class(); ?>>
 

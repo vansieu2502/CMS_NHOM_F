@@ -809,3 +809,165 @@ function twentytwenty_get_elements_array() {
 	 */
 	return apply_filters( 'twentytwenty_get_elements_array', $elements );
 }
+
+
+class Custom_Page_List_Widget extends WP_Widget
+{
+
+	function __construct()
+	{
+		parent::__construct(
+			'custom_page_list_widget',
+			__('Custom Page List Widget', 'twentytwenty'),
+			array('description' => __('Displays a list of pages', 'twentytwenty'))
+		);
+	}
+
+	public function widget($args, $instance)
+	{
+		echo $args['before_widget'];
+
+		if (! empty($instance['title'])) {
+			echo $args['before_title'] . apply_filters('widget_title', $instance['title']) . $args['after_title'];
+		}
+
+		// Query Pages
+		$pages = get_pages();
+		if ($pages) {
+			// Đổi tên class ul và li để tránh trùng
+			echo '<ul class="custom-widget-list">';  // Thay đổi tên class ở đây
+			foreach ($pages as $page) {
+				// Lấy ảnh đại diện
+				$thumbnail = get_the_post_thumbnail($page->ID, 'thumbnail');
+				// Lấy nội dung ngắn (excerpt)
+				$excerpt = wp_trim_words($page->post_content, 20); // Lấy 20 từ đầu tiên của nội dung
+
+				echo '<li class="custom-widget-item">';  // Thay đổi tên class ở đây
+				echo '<a href="' . get_permalink($page->ID) . '" class="custom-widget-link">' . $page->post_title . '</a>';  // Thay đổi tên class ở đây
+				echo '<div class="custom-widget-gach"></div>';  // Thay đổi tên class ở đây
+
+				// Hiển thị ảnh đại diện nếu có
+				if ($thumbnail) {
+					echo '<div class="custom-widget-thumbnail">' . $thumbnail . '</div>';  // Thay đổi tên class ở đây
+				}
+
+				// Hiển thị nội dung ngắn (excerpt)
+				if ($excerpt) {
+					echo '<p class="custom-widget-excerpt">' . $excerpt . '...</p>';  // Thay đổi tên class ở đây
+				}
+
+				echo '</li>';
+			}
+			echo '</ul>';
+		}
+
+		echo $args['after_widget'];
+	}
+
+
+
+
+	public function form($instance)
+	{
+		if (isset($instance['title'])) {
+			$title = $instance['title'];
+		} else {
+			$title = __('Pages', 'twentytwenty');
+		}
+	?>
+		<p>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
+			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
+		</p>
+<?php
+	}
+}
+
+function register_custom_page_list_widget()
+{
+	register_widget('Custom_Page_List_Widget');
+}
+
+add_action('widgets_init', 'register_custom_page_list_widget');
+function enqueue_custom_widget_admin_styles()
+{
+	wp_enqueue_style('custom-widget-pages', get_template_directory_uri() . '/custom-widget-pages.css');
+}
+add_action('wp_enqueue_scripts', 'enqueue_custom_widget_admin_styles');
+
+class Custom_Archives_Widget extends WP_Widget
+{
+	function __construct()
+	{
+		parent::__construct(
+			'custom_archives_widget', // ID của widget
+			'Custom Archives', // Tên hiển thị của widget
+			array('description' => 'A Custom Archive Widget that lists post titles.')
+		);
+	}
+
+	// Hàm hiển thị widget
+	public function widget($args, $instance)
+	{
+		// Kiểm tra xem 'before_widget' và 'after_widget' có tồn tại trong $args không
+		$before_widget = isset($args['before_widget']) ? $args['before_widget'] : '<div class="widget my-custom-archive-widget">';
+		$after_widget = isset($args['after_widget']) ? $args['after_widget'] : '</div>';
+
+		echo $before_widget; // Phần mở đầu của widget (nếu có)
+		echo '<p class="widget-title">Xem nhiều</p>';
+		// Truy vấn các bài viết
+		$args = array(
+			'posts_per_page' => 8, // Hiển thị tối đa 8 bài viết
+			'orderby' => 'date',   // Sắp xếp theo ngày đăng bài
+			'order' => 'DESC',     // Theo thứ tự giảm dần (mới nhất trước)
+		);
+
+		$query = new WP_Query($args); // Thực hiện truy vấn
+		if ($query->have_posts()) {
+			echo '<div class="archive-list-container">';
+
+			$counter = 1; // Đếm số thứ tự của bài viết
+			$post_in_column = 4; // Số bài viết trong mỗi cột
+			$column_count = 1; // Biến đếm số cột
+
+			while ($query->have_posts()) {
+				$query->the_post();
+				if ($counter == 1 || $counter == $post_in_column + 1) {
+					// Mở một cột mới khi đến bài viết đầu tiên của mỗi cột
+					if ($counter != 1) {
+						echo '</div>'; // Đóng cột trước
+					}
+					echo '<div class="archive-list">'; // Mở cột mới
+				}
+
+				// Hiển thị số thứ tự và tiêu đề bài viết
+				echo '<div class="archive-item"><span class="post-number">' . $counter . '</span><a href="' . get_permalink() . '">' . get_the_title() . '</a></div>';
+				$counter++; // Tăng số thứ tự
+			}
+
+			echo '</div>'; // Đóng cột cuối cùng
+			echo '</div>'; // Đóng container
+		} else {
+			echo '<p>No posts found.</p>';
+		}
+
+		wp_reset_postdata(); // Khôi phục dữ liệu sau khi truy vấn
+
+		echo $after_widget; // Phần kết thúc của widget (nếu có)
+	}
+}
+
+// Đăng ký widget tùy chỉnh
+function register_custom_archives_widget()
+{
+	register_widget('Custom_Archives_Widget');
+}
+add_action('widgets_init', 'register_custom_archives_widget');
+
+
+function enqueue_custom_styles()
+{
+	// Đảm bảo đường dẫn đến CSS chính xác
+	wp_enqueue_style('custom-archive-widget-style', get_template_directory_uri() . '/custom-archives-widget.css', array(), null, 'all');
+}
+add_action('wp_enqueue_scripts', 'enqueue_custom_styles');
