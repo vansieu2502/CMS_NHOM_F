@@ -1,0 +1,25 @@
+/* custom-archives-widget.css */
+.my-custom-archive-widget {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.my-custom-archive-widget ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.my-custom-archive-widget ul li {
+    margin-bottom: 10px;
+}
+
+.my-custom-archive-widget ul li a {
+    text-decoration: none;
+    color: #0073e6;
+}
+
+.my-custom-archive-widget ul li a:hover {
+    text-decoration: underline;
+}
