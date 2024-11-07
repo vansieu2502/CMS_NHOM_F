@@ -910,3 +910,8 @@ function register_custom_page_list_widget()
 }
 
 add_action('widgets_init', 'register_custom_page_list_widget');
+function enqueue_custom_widget_admin_styles()
+{
+	wp_enqueue_style('custom-widget-pages', get_template_directory_uri() . '/css/custom-widget-pages.css');
+}
+add_action('wp_enqueue_scripts', 'enqueue_custom_widget_admin_styles');

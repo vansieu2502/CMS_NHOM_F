@@ -7,9 +7,8 @@
     padding: 0;
     margin: 0;
 }
-
 .widget ul li {
-    width: calc(33.333% - 20px); /* Chia đều 3 mục trên mỗi dòng */
+    width: calc(33.333% - 13.33px); /* Điều chỉnh nhỏ để khớp với khoảng cách gap */
     box-sizing: border-box;
     background-color: #f9f9f9;
     padding: 15px;
@@ -17,6 +16,7 @@
     border-radius: 5px;
     text-align: center;
 }
+
 
 /* Định dạng tiêu đề trang */
 .widget ul li a {
@@ -59,9 +59,16 @@
     margin: 5px auto;
 }
 
-/* Responsive: Chuyển sang 1 bài trên dòng khi màn hình nhỏ */
+/* Responsive cho màn hình nhỏ */
 @media (max-width: 768px) {
     .widget ul li {
-        width: 100%; /* Chiếm toàn bộ chiều rộng màn hình */
+        width: 100%; /* Chiếm toàn bộ chiều rộng */
+    }
+}
+
+/* Responsive cho màn hình lớn hơn nhưng vẫn cần điều chỉnh */
+@media (max-width: 1024px) {
+    .widget ul li {
+        width: calc(50% - 10px); /* 2 mục trên mỗi dòng */
     }
 }
