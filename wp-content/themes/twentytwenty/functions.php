@@ -891,6 +891,11 @@ add_action('widgets_init', 'register_custom_archives_widget');
 
 function enqueue_custom_styles()
 {
-	wp_enqueue_style('custom-archive-widget-style', get_template_directory_uri() . '/custom-archives-widget.css', array(), time(), 'all');
+	$css_url = get_template_directory_uri() . '/custom-archives-widget.css';
+
+	// In ra đường dẫn CSS
+	echo '<!-- CSS URL: ' . $css_url . ' -->';
+
+	wp_enqueue_style('custom-archive-widget-style', $css_url, array(), null, 'all');
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_styles');
