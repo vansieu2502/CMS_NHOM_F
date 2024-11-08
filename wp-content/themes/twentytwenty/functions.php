@@ -831,6 +831,8 @@ function twentytwenty_get_elements_array()
 	 *
 	 * @param array Array of elements.
 	 */
+
+
 	return apply_filters('twentytwenty_get_elements_array', $elements);
 }
 
@@ -918,7 +920,6 @@ function enqueue_custom_widget_admin_styles()
 	wp_enqueue_style('custom-widget-pages', get_template_directory_uri() . '/custom-widget-pages.css');
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_widget_admin_styles');
-
 
 class Custom_Archives_Widget extends WP_Widget
 {

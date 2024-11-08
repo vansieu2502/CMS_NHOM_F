@@ -96,6 +96,8 @@ if (comments_open() || pings_open()) {
 	</section>
 	<!-- Custom Post Form Ends -->
 
+
+						<!--cái này của hiên commemt-->
 <?php
 } elseif (is_single()) {
 	if ($comments) {
@@ -172,64 +174,10 @@ if (comments_open() || pings_open()) {
 		text-decoration: none;
 	}
 
+	/*cái này của hiên*/
 
 
 
 
-
-/* sieu */
-	.form-comment1 {
-		max-width: 65%;
-
-	}
-
-	.form-comment .comments1 {
-		padding-top: 0 !important;
-
-
-	}
-
-	.comments-divider {
-		border: none;
-		border-top: 2px solid #000;
-		width: 100px;
-		margin: 1px auto;
-		margin-left: 0;
-	}
-
-	.max-percentage {
-		margin-left: 200px;
-	}
-
-	.max-percentage h4 {
-		font-size: 30px;
-
-
-	}
-
-	.comments1 .content1 {
-
-		
-		height: auto;
-
-		color: #3188d4;
-		font-size: 1.8em;
-		margin-left: 215px;
-		padding-top: 2rem !important;
-
-	}
-
-	.max-percentage h4 {
-		font-size: 30px;
-		
-
-	}
-
-	.comment-content {
-		margin-top: -5rem !important;
-	
-		
-
-	}
 </style>
 

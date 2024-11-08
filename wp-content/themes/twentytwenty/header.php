@@ -26,8 +26,11 @@ $enable_header_search = get_theme_mod('enable_header_search', true); // Add this
 
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
-	<link rel="stylesheet" id="custom-archive-widget-style-css" href="http://yourdomain.com/wp-content/themes/twentytwenty/custom-archives-widget.css" type="text/css" media="all">
-	<link rel="stylesheet" id="custom-widget-pages-style-css" href="http://yourdomain.com/wp-content/themes/twentytwenty/custom-widget-pages.css" type="text/css" media="all">
+	<link rel="stylesheet" id="custom-archive-widget-style-css"
+		href="http://yourdomain.com/wp-content/themes/twentytwenty/custom-archives-widget.css" type="text/css"
+		media="all">
+	<link rel="stylesheet" id="custom-widget-pages-style-css"
+		href="http://yourdomain.com/wp-content/themes/twentytwenty/custom-widget-pages.css" type="text/css" media="all">
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
 		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -83,42 +86,51 @@ $enable_header_search = get_theme_mod('enable_header_search', true); // Add this
 					</form>
 				</div>
 				<!-- Navigation Links -->
-				<div class="col-md-3">
+				<div class="col-md-4">
 					<nav class="nav">
-						<a class="nav-link" href="#">Thể thao</a>
-						<a class="nav-link" href="#">Khoa học</a>
-						<a class="nav-link" href="#">Tin tức</a>
+						<?php
+						// Display the list of categories with custom classes
+						wp_list_categories([
+							'title_li' => '',  // Remove the default title
+							'style' => 'list', // Use list format for categories
+							'separator' => '', // Add a separator for navigation links if needed
+							'walker' => new Walker_Category_Nav_Link() // Custom walker for <a> and 'nav-link' class
+						]);
+						?>
 					</nav>
 				</div>
 
+				<?php
+				class Walker_Category_Nav_Link extends Walker_Category
+				{
+					function start_el(&$output, $category, $depth = 0, $args = [], $id = 0)
+					{
+						$cat_name = esc_attr($category->name);
+						$cat_link = esc_url(get_category_link($category->term_id));
+
+						$output .= "<a class='nav-link' href='{$cat_link}'>{$cat_name}</a>";
+					}
+				}
+				?>
+
 				<!-- User Account Dropdown -->
-				<div class="col-md-3 text-center">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="search-bar">
-								<a href="<?php echo esc_url(home_url('/')); ?>?s=" class="nav-link">
-									<i class="fa fa-2x fa-search"></i>
-									<span><?php esc_html_e('Search', 'text-domain'); ?></span>
-								</a>
-							</div>
+				<div class="col-md-2 text-center">
+
+					<!-- User Account Dropdown -->
+					<div class="dropdown">
+						<a href="#" class="nav-link dropdown-toggle" id="accountDropdown" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							<span class="user-icon"><i class="fa fa-2x fa-user-circle"></i></span>
+							<span><?php esc_html_e('Account', 'text-domain'); ?></span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
+							<a class="dropdown-item" href="#">Profile</a>
+							<a class="dropdown-item" href="#">Settings</a>
+							<a class="dropdown-item" href="#">Logout</a>
 						</div>
-						<!-- User Account Dropdown -->
-						<div class="col-md-6">
-							<div class="dropdown">
-								<a href="#" class="nav-link dropdown-toggle" id="accountDropdown" data-toggle="dropdown"
-									aria-haspopup="true" aria-expanded="false">
-									<span class="user-icon"><i class="fa fa-2x fa-user-circle"></i></span>
-									<span><?php esc_html_e('Account', 'text-domain'); ?></span>
-								</a>
-								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
-									<a class="dropdown-item" href="#">Profile</a>
-									<a class="dropdown-item" href="#">Settings</a>
-									<a class="dropdown-item" href="#">Logout</a>
-								</div>
-							</div>
-						</div>
-						<!-- End of User Account Dropdown -->
 					</div>
+					<!-- End of User Account Dropdown -->
+
 				</div>
 			</div>
 		</div>
