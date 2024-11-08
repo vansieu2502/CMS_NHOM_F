@@ -42,30 +42,39 @@ if (is_single()) {
 		margin: 0 auto; */
 	}
 
-	/* Bố cục chung cho phần ngày tháng, thêm khung tròn */
+	/* Container bao quanh tiêu đề và ngày tháng */
+	.post-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		/* Canh giữa các phần tử theo chiều dọc */
+	}
+
+	/* Định dạng tiêu đề */
+	.post-title {
+		font-size: 24px;
+		margin: 0;
+		color: #333;
+		font-weight: bold;
+	}
+
+	/* Định dạng ngày tháng */
 	.post-date {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		/* Canh giữa ngày/tháng/năm trong vòng tròn */
 		font-size: 16px;
 		position: relative;
 		width: 80px;
-		/* Đặt chiều rộng của vòng tròn */
 		height: 80px;
-		/* Đặt chiều cao của vòng tròn */
 		background-color: #f4c542;
-		/* Màu nền của vòng tròn */
 		border-radius: 50%;
-		/* Tạo khung tròn */
 		color: white;
-		/* Màu chữ trắng */
 		padding: 10px;
-		/* Khoảng cách giữa các phần tử và biên vòng tròn */
 		box-sizing: border-box;
-		/* Đảm bảo padding không làm thay đổi kích thước vòng tròn */
 		margin-left: auto;
-		transform: translateY(-30px);
+		transform: none;
+		/* Xóa transform để không bị dịch chuyển */
 	}
 
 	/* Bọc ngày và tháng lại trong một khối */
@@ -143,7 +152,7 @@ if (is_single()) {
 
 	/* Responsive: Bố cục dọc trên thiết bị nhỏ */
 	@media (max-width: 768px) {
-.post-item {
+		.post-item {
 			flex-direction: column;
 		}
 
@@ -182,8 +191,19 @@ if (is_single()) {
 
 	?>
 
-	<?php if (is_single()) : ?>
+	<?php if (is_single()) :
+
+		if (is_singular()) {
+			the_title('<h1 class="entry-title mx-auto ">', '</h1>');
+		} else {
+			the_title('<h2 class="entry-title mx-auto  heading-size-1"><a href="' . esc_url(get_permalink()) . '">', '</a></h2>');
+		}
+
+		if (! is_search()) {
+			get_template_part('template-parts/featured-image');
+		} ?>
 		<!-- Hiển thị ngày tháng cho bài viết đơn -->
+
 		<div class="post-date">
 			<div class="day-month">
 				<div class="day"><?php echo get_the_date('d'); ?></div>
@@ -259,7 +279,7 @@ if (is_single()) {
 	 * Output comments wrapper if it's a post, or if comments are open,
 	 * or if there's a comment number – and check for password.
 	 */
-if ((is_single() || is_page()) && (comments_open() || get_comments_number()) && ! post_password_required()) {
+	if ((is_single() || is_page()) && (comments_open() || get_comments_number()) && ! post_password_required()) {
 	?>
 
 		<div class="comments-wrapper section-inner">
