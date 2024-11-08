@@ -8,7 +8,7 @@
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 				<h4>Latest News</h4>
-				<ul class="timeline">
+				<ul class="custom-timeline">
 
 					<?php
 					// Query to get the latest posts
@@ -25,9 +25,9 @@
 						while ( $latest_posts->have_posts() ) : $latest_posts->the_post();
 					?>
 							<li>
-								<div class="post-info">
-									<a href="<?php the_permalink(); ?>" target="_blank" class="post-title"><?php the_title(); ?></a>
-									<a href="#" class="post-date float-right"><?php echo get_the_date(); ?></a>
+								<div class="custom-post-info">
+									<a href="<?php the_permalink(); ?>" target="_blank" class="custom-post-title"><?php the_title(); ?></a>
+									<a href="#" class="custom-post-date float-right"><?php echo get_the_date(); ?></a>
 								</div>
 								<p><?php echo wp_trim_words( get_the_excerpt(), 20 ); ?></p>
 							</li>
@@ -51,11 +51,11 @@
 </html>
 
 <style>
-	ul.timeline {
+	ul.custom-timeline {
     list-style-type: none;
     position: relative;
 }
-ul.timeline:before {
+ul.custom-timeline:before {
     content: ' ';
     background: #d4d9df;
     display: inline-block;
@@ -65,11 +65,11 @@ ul.timeline:before {
     height: 100%;
     z-index: 400;
 }
-ul.timeline > li {
+ul.custom-timeline > li {
     margin: 20px 0;
     padding-left: 60px;
 }
-ul.timeline > li:before {
+ul.custom-timeline > li:before {
     content: ' ';
     background: white;
     display: inline-block;
@@ -83,13 +83,13 @@ ul.timeline > li:before {
 }
 
 /* Flex container to align title and date in the same row */
-.post-info {
+.custom-post-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.post-title {
+.custom-post-title {
     display: block;
     max-width: 80%; /* Adjust based on your layout */
     white-space: nowrap; /* Prevent wrapping */
@@ -98,7 +98,7 @@ ul.timeline > li:before {
     width: 70%; /* Set a max width for the title */
 }
 
-.post-date {
+.custom-post-date {
     font-size: 0.85em;
 }
 </style>
