@@ -33,6 +33,11 @@ get_header();
 		margin: 0 auto;
 	}
 
+	.post-image img {
+		width: 200px;
+		height: auto;
+	}
+
 	.post-item {
 		display: flex;
 		align-items: center;
