@@ -293,64 +293,64 @@ function block_core_latest_posts_migrate_categories($block)
 add_filter('render_block_data', 'block_core_latest_posts_migrate_categories');
 ?>
 <style>
-	/* Styles applied only to the latest-posts block */
-.wp-block-latest-posts li {
-    display: flex;
+.wp-block-latest-posts li{
+ display: flex;
 }
-
 .wp-block-latest-posts__post-date {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: space-between;
-    font-size: 16px;
+    font-size: 16px; /* Kích thước chữ cho ngày tháng */
     position: relative;
 }
 
 .wp-block-latest-posts__post-date .day-month {
     display: inline-block;
-    font-size: 20px;
+    font-size: 20px; /* Kích thước lớn hơn cho ngày và tháng */
     font-weight: bold;
     line-height: 1;
     text-align: center;
-    color: white !important;
+ color: white !important;
 }
 
 .wp-block-latest-posts__post-date .day {
     display: block;
-    font-size: 15px;
-    margin-bottom: -4px;
-    border-bottom: 1px solid gray;
-    padding-bottom: 5px;
-    font-weight: 100 !important;
+    font-size: 15px; /* Kích thước lớn hơn cho ngày */
+    margin-bottom: -4px; /* Điều chỉnh khoảng cách để tạo hiệu ứng phân số */
+ border-bottom: 1px solid gray;
+ padding-bottom: 5px;
+  font-weight: 100 !important;
+  width: 20px;
 }
 
 .wp-block-latest-posts__post-date .month {
     display: block;
-    font-size: 15px;
-    padding-top: 5px;
-    font-weight: 100 !important;
+    font-size: 15px; /* Kích thước nhỏ hơn cho tháng */
+ padding-top: 5px;
+  font-weight: 100 !important;
+  width: 20px;
 }
 
 .wp-block-latest-posts__post-date .year {
-    font-size: 15px;
-    color: #666;
-    margin-left: 5px;
-    font-weight: 100 !important;
-    color: white !important;
+    font-size: 15px; /* Kích thước nhỏ hơn cho năm */
+    color: #666; /* Màu chữ cho năm */
+    margin-left: 5px; /* Khoảng cách giữa phân số và năm */
+ font-weight: bold;
+ color: white !important;
+  font-weight: 100 !important;
+  width: 20px;
 }
-
-.wp-block-latest-posts__post-title {
-    margin: 8px 0px 0px 50px;
-    color: white !important;
-    font-size: 20px;
-    font-weight: 100 !important;
+.wp-block-latest-posts__post-title{
+ margin: 8px 0px 0px 50px;
+ color: white !important;
+ font-size: 20px;
+ font-weight: 100 !important;
 }
-
-.wp-block-group.wp-block-latest-posts {
-    background-color: #3cc5d8;
-    color: white !important;
-    padding: 0px 0px 10px 10px;
-    border-radius: 5px;
+.wp-block-group{
+ background-color: #3cc5d8;
+ color: white !important;
+ padding:0px 0px 10px 10px;
+ border-radius: 5px;
 }
 
 </style>
