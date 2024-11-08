@@ -997,3 +997,14 @@ function enqueue_custom_styles()
 	wp_enqueue_style('custom-archive-widget-style', get_template_directory_uri() . '/custom-archives-widget.css', array(), null, 'all');
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_styles');
+
+// Hàm lấy 3 comment hiển thị trên trang danh sách bài viết
+function get_latest_comments($number = 3) {
+    $args = array(
+        'number' => $number,
+        'status' => 'approve', // Chỉ lấy các bình luận đã được phê duyệt
+    );
+
+    $comments = get_comments($args);
+    return $comments;
+}
