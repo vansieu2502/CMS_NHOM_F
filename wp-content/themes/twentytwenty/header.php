@@ -20,7 +20,10 @@ $enable_header_search = get_theme_mod('enable_header_search', true); // Add this
 	<meta charset="<?php bloginfo('charset'); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+	<!-- Link css cho các module -->
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/module1.css" type="text/css">
+	<link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/module3.css" type="text/css">
+
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
 	<link rel="stylesheet" id="custom-archive-widget-style-css"
