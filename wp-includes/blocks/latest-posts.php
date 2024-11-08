@@ -78,7 +78,7 @@ function render_block_core_latest_posts($attributes)
 		if (! $title) {
 			$title = __('(no title)');
 		}
-
+		$list_items_markup .= '<div class="parent-class1">';
 		$list_items_markup .= '<li>';
 
 		if ($attributes['displayFeaturedImage'] && has_post_thumbnail($post)) {
@@ -124,6 +124,7 @@ function render_block_core_latest_posts($attributes)
 		$year  = get_the_date('y', $post); // Lấy năm
 
 		// Thêm ngày tháng năm vào HTML
+
 		$list_items_markup .= '<div class="wp-block-latest-posts__post-date">';
 		$list_items_markup .= '<div class="day-month">';
 		$list_items_markup .= sprintf('<span class="day">%s</span>', esc_html($day));
@@ -150,7 +151,7 @@ function render_block_core_latest_posts($attributes)
 				);
 			}
 		}
-
+		$list_items_markup .= '</div>';
 		if (isset($attributes['displayPostDate']) && $attributes['displayPostDate']) {
 			$list_items_markup .= sprintf(
 				'<time datetime="%1$s" class="wp-block-latest-posts__post-date">%2$s</time>',
@@ -351,16 +352,16 @@ add_filter('render_block_data', 'block_core_latest_posts_migrate_categories');
 	}
 
 	.wp-block-latest-posts__post-title {
+
 		margin: 8px 0px 0px 50px;
 		color: white !important;
 		font-size: 20px;
 		font-weight: 100 !important;
 	}
 
-	.wp-block-group {
+	.parent-class1 {
 		background-color: #3cc5d8;
 		color: white !important;
 		padding: 0px 0px 10px 10px;
-		border-radius: 5px;
 	}
 </style>
