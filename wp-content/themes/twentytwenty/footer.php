@@ -18,7 +18,7 @@
 						'status' => 'approve' // Only approved comments
 					));
 					foreach ($recent_comments as $comment) {
-						echo '<li><a href="' . get_permalink($comment->comment_post_ID) . '"><i class="fa fa-angle-double-right"></i> ' . get_the_title($comment->comment_post_ID) . ' - ' . $comment->comment_author . '</a></li>';
+						echo '<li><a href="' . get_permalink($comment->comment_post_ID) . '"><i class="fa fa-angle-double-right"></i> ' . get_the_title($comment->comment_post_ID) . '</a></li>';
 					}
 					?>
 				</ul>
