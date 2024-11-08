@@ -23,6 +23,9 @@ $enable_header_search = get_theme_mod('enable_header_search', true); // Add this
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/module1.css" type="text/css">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
+	<link rel="stylesheet" id="custom-archive-widget-style-css" href="http://yourdomain.com/wp-content/themes/twentytwenty/custom-archives-widget.css" type="text/css" media="all">
+	<link rel="stylesheet" id="custom-widget-pages-style-css" href="http://yourdomain.com/wp-content/themes/twentytwenty/custom-widget-pages.css" type="text/css" media="all">
+
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
 		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
