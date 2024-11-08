@@ -1,75 +1,63 @@
 <?php
-// If the current post is protected by a password and the visitor has not yet entered the password, return early without loading the comments.
-if (post_password_required()) {
+/**
+ * The template file for displaying the comments and comment form for the
+ * Twenty Twenty theme.
+ *
+ * @package WordPress
+ * @subpackage Twenty_Twenty
+ * @since Twenty Twenty 1.0
+ */
+
+/*
+ * If the current post is protected by a password and
+ * the visitor has not yet entered the password we will
+ * return early without loading the comments.
+*/
+if ( post_password_required() ) {
 	return;
 }
 
-if ($comments) {
-?>
-	<div class="comments" id="comments">
+if ( $comments ) {
+	?>
+
+<div class="form-comment1">
+
+
+<div class="comments1" id="comments">
+	<div class="comments-header section-inner small max-percentage">
+		<h4>Comments</h4>
+		<hr class="comments-divider">
+	</div><!-- .comments-header -->
+
+	<div class="comments content1">
 		<?php
-		$comments_number = get_comments_number();
+		// Hiển thị chỉ nội dung bình luận
+		wp_list_comments(
+			array(
+				'callback' => 'custom_comment_content_only', // Sử dụng callback để chỉ hiển thị nội dung
+			)
+		);
 		?>
-		<div class="comments-header section-inner small max-percentage">
-			<h2 class="comment-reply-title">
-				<?php
-				if (!have_comments()) {
-					_e('Leave a comment', 'twentytwenty');
-				} elseif ('1' === $comments_number) {
-					printf(_x('One reply on &ldquo;%s&rdquo;', 'comments title', 'twentytwenty'), get_the_title());
-				} else {
-					printf(
-						_nx(
-							'%1$s reply on &ldquo;%2$s&rdquo;',
-							'%1$s replies on &ldquo;%2$s&rdquo;',
-							$comments_number,
-							'comments title',
-							'twentytwenty'
-						),
-						number_format_i18n($comments_number),
-						get_the_title()
-					);
-				}
-				?>
-			</h2>
-		</div>
+	</div><!-- .comments-inner -->
 
-		<div class="comments-inner section-inner thin max-percentage">
-			<?php
-			wp_list_comments(
-				array(
-					'walker' => new TwentyTwenty_Walker_Comment(),
-					'avatar_size' => 120,
-					'style' => 'div',
-				)
-			);
-
-			$comment_pagination = paginate_comments_links(
-				array(
-					'echo' => false,
-					'end_size' => 0,
-					'mid_size' => 0,
-					'next_text' => __('Newer Comments', 'twentytwenty') . ' <span aria-hidden="true">&rarr;</span>',
-					'prev_text' => '<span aria-hidden="true">&larr;</span> ' . __('Older Comments', 'twentytwenty'),
-				)
-			);
-
-			if ($comment_pagination) {
-				$pagination_classes = '';
-
-				if (false === strpos($comment_pagination, 'prev page-numbers')) {
-					$pagination_classes = ' only-next';
-				}
-			?>
-				<nav class="comments-pagination pagination<?php echo esc_attr($pagination_classes); ?>" aria-label="<?php esc_attr_e('Comments', 'twentytwenty'); ?>">
-					<?php echo wp_kses_post($comment_pagination); ?>
-				</nav>
-			<?php
-			}
-			?>
-		</div>
-	</div>
+</div><!-- comments -->
+</div>
 <?php
+}
+
+function custom_comment_content_only($comment, $args, $depth)
+{
+?>
+<div <?php comment_class(); ?> id="comment-<?php comment_ID(); ?>">
+	<div class="comment-content">
+		<?php comment_text(); // Hiển thị nội dung bình luận ?>
+	</div>
+	<hr>
+</div>
+
+
+
+	<?php
 }
 
 if (comments_open() || pings_open()) {
@@ -79,20 +67,20 @@ if (comments_open() || pings_open()) {
 ?>
 
 	<!-- Custom Post Form Begins -->
-	<section class="card">
-		<div class="card-body">
+	<section class="card1">
+		<div class="card-body1">
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
 					<div class="form-group">
-						<label class="sr-only" for="comment">Make a Post</label>
-						<div class="form-area">
+						<label class="sr-only1" for="comment">Make a Post</label>
+						<div class="form-area1">
 							<?php
 							// Custom Comment Form Fields
 							comment_form(
 								array(
 									'title_reply' => '', // Remove title	
 									'comment_field' => '<textarea id="comment" name="comment" class="form-control" rows="3" placeholder="What are you thinking..."></textarea>',
-									'submit_button' => '<div class="text-right"><button type="submit" class="btn btn-primary">Share</button></div>',
+									'submit_button' => '<div class="text-right1"><button type="submit" class="btn1 btn-primary1">Share</button></div>',
 									'class_form' => '', // Remove WordPress default form class
 									'logged_in_as' => '', // Loại bỏ dòng "Logged in as..."
 									'title_reply_before' => '',
@@ -121,8 +109,10 @@ if (comments_open() || pings_open()) {
 }
 ?>
 
+
+
 <style>
-	.card {
+	.card1 {
 		margin: 0;
 		padding: 0;
 		background-color: #F7F7F7;
@@ -131,11 +121,11 @@ if (comments_open() || pings_open()) {
 	}
 
 
-	.card-body {
+	.card-body1 {
 		padding: 20px 0;
 	}
 
-	.sr-only {
+	.sr-only1 {
 		border: 1px solid #D4D4D4;
 		border-bottom: none;
 		width: max-content;
@@ -148,7 +138,7 @@ if (comments_open() || pings_open()) {
 	}
 
 
-	.form-area {
+	.form-area1 {
 		border-top: 1px solid #D4D4D4;
 		border-bottom: 1px solid #D4D4D4;
 		width: 100%;
@@ -156,12 +146,12 @@ if (comments_open() || pings_open()) {
 		padding: 30px;
 	}
 
-	.text-right {
+	.text-right1 {
 		display: flex;
 		justify-content: end;
 	}
 
-	.btn {
+	.btn1 {
 		margin-top: 20px;
 		padding: 1rem 1.5rem;
 		border-radius: 0.25rem;
@@ -172,13 +162,74 @@ if (comments_open() || pings_open()) {
 
 	}
 
-	.btn-primary {
+	.btn-primary1 {
 		background-color: #007bff;
 		color: white;
 	}
 
-	.btn-primary:hover {
+	.btn-primary1:hover {
 		background-color: #0056b3;
 		text-decoration: none;
 	}
+
+
+
+
+
+
+/* sieu */
+	.form-comment1 {
+		max-width: 65%;
+
+	}
+
+	.form-comment .comments1 {
+		padding-top: 0 !important;
+
+
+	}
+
+	.comments-divider {
+		border: none;
+		border-top: 2px solid #000;
+		width: 100px;
+		margin: 1px auto;
+		margin-left: 0;
+	}
+
+	.max-percentage {
+		margin-left: 200px;
+	}
+
+	.max-percentage h4 {
+		font-size: 30px;
+
+
+	}
+
+	.comments1 .content1 {
+
+		
+		height: auto;
+
+		color: #3188d4;
+		font-size: 1.8em;
+		margin-left: 215px;
+		padding-top: 2rem !important;
+
+	}
+
+	.max-percentage h4 {
+		font-size: 30px;
+		
+
+	}
+
+	.comment-content {
+		margin-top: -5rem !important;
+	
+		
+
+	}
 </style>
+

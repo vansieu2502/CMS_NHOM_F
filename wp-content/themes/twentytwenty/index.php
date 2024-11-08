@@ -24,8 +24,8 @@ get_header();
 			<?php while (have_posts()):
 				the_post(); ?>
 				<div class="post-item">
-					<!-- <div class="post-image"> Cột trái: Hình ảnh -->
-					<!-- <div class="post-thumbnail">
+					<!-- <div class="post-image">
+						<div class="post-thumbnail">
 							<?php
 							if (has_post_thumbnail()) {
 								the_post_thumbnail('medium');
@@ -33,8 +33,8 @@ get_header();
 								echo '<img src="' . get_template_directory_uri() . '/assets/images/default-thumbnail.jpg" alt="Default Thumbnail">';
 							}
 							?>
-						</div> -->
-					<!-- </div> -->
+						</div>
+					</div> -->
 					<div class="post-date">
 						<span class="day"><?php echo get_the_date('d'); ?></span>
 						<span class="month"><?php echo get_the_date('F'); ?></span>
@@ -59,121 +59,107 @@ get_header();
 
 </main>
 <style>
-	#site-content {
-		margin-top: 10px;
-	}
+#site-content {
+    margin-top: 10px;
+}
 
-	.post-list {
-		width: 80%;
-		margin: 0 auto;
-	}
+.post-list {
+  max-width: 700px;
+    margin: 0 auto;
+	background-color:#f7f7f7;
 
-	.post-image {
-		margin: 0 15px;
-		max-width: 100%;
-		height: auto;
-	}
+}
 
-	.post-item {
-		display: flex;
-		align-items: center;
-		padding: 16px;
-		margin-bottom: 24px;
-		background-color: #fff;
-		font-family: Arial, sans-serif;
-		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-		border-radius: 8px;
-		width: 700px;
-		margin: auto;
-		margin-top: 15px;
+.post-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px;
+    margin-bottom: 24px;
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    max-width: 700px;
+    margin: auto;
+    margin-top: 15px;
+	margin-bottom: 15px;
+}
 
-	}
+.post-date {
+    width: 80px;
+    text-align: center;
+    margin-right: 16px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    padding-right: 16px;
+    border-right: 1px solid #333;
+	margin-top: -10px;
+}
 
-	.post-date {
-		width: 80px;
-		text-align: center;
-		align-self: start;
-		margin-right: 16px;
-		font-family: 'Arial', sans-serif;
-		color: #333;
-		border-right: 1px solid #333;
-		padding-right: 16px;
-		position: relative;
+.post-date .day {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+}
 
-	}
+.post-date .month {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #777;
+    margin-top: -8px;
+}
 
-	.post-date::after {
-		content: "";
-		position: absolute;
-		right: 0;
-		top: -6px;
-		bottom: -6px;
-		width: 1px;
-	}
+.post-info {
+    display: flex;
+    flex-direction: column; /* Sắp xếp các phần tử theo chiều dọc */
+}
 
-	.post-date .day {
-		font-size: 36px;
-		font-weight: bold;
-	}
+.post-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0056b3;
+    /* margin: 0 ;  */
+	margin-left: -2px;
+}
 
-	.post-date .month {
-		font-size: 12px;
-		text-transform: uppercase;
-		color: #777;
-		margin-top: -8px;
-	}
+.post-title a {
+    text-decoration: none;
+    color: #0056b3;
+}
 
-	.post-info {
-		flex: 1;
-		align-self: start;
-	}
+.post-title a:hover {
+    text-decoration: underline;
+}
 
-	.post-title {
-		font-size: 20px;
-		font-weight: bold;
-		color: #0056b3;
-		margin: 0 0 8px;
-	}
+.post-excerpt {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+    line-height: 1.6;
+}
 
-	.post-title a {
-		text-decoration: none;
-		color: #0056b3;
-	}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .post-item {
+        flex-direction: column;
+        text-align: center;
+    }
 
-	.post-title a:hover {
-		text-decoration: underline;
-	}
+    .post-date {
+        margin-right: 0;
+        border-right: none;
+        margin-bottom: 16px;
+    }
 
-	.post-excerpt {
-		font-size: 14px;
-		color: #666;
-		margin: 0;
-		line-height: 1.6;
-	}
+    .post-info {
+        text-align: center;
+		/* text-align: left; */
+    }
+}
 
-	@media (max-width: 768px) {
-		.post-item {
-			flex-direction: column;
-			text-align: center;
-		}
-
-		.post-image {
-			margin-bottom: 16px;
-		}
-
-		.post-date {
-			margin-right: 0;
-			border-right: none;
-			margin-bottom: 16px;
-		}
-
-		.post-info {
-			text-align: left;
-		}
-	}
 </style>
 
-<?php get_template_part('template-parts/footer-menus-widgets'); ?>
+<?php get_template_part( 'template-parts/footer-menus-widgets' ); ?>
 
 <?php
 get_footer();

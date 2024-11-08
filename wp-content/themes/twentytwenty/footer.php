@@ -1,72 +1,104 @@
-<?php
-
-/**
- * The template for displaying the footer
- *
- * Contains the opening of the #site-footer div and all content after.
- *
- * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
- *
- * @package WordPress
- * @subpackage Twenty_Twenty
- * @since Twenty Twenty 1.0
- */
-
-?>
 <footer id="site-footer" class="header-footer-group">
 
-	<div class="section-inner">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-		<div class="footer-credits">
+	<div class="container mt-5 mb-5">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<h4>Latest News</h4>
+				<ul class="timeline">
 
-			<p class="footer-copyright">&copy;
-				<?php
-				/* translators: Copyright date format, see https://www.php.net/manual/datetime.format.php */
-				$date_format = _x('Y', 'copyright date format', 'twentytwenty');
-				if (function_exists('wp_date')) {
-					echo wp_date($date_format);
-				} else {
-					echo date_i18n($date_format);
-				}
-				?>
-				<a href="<?php echo esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a>
-			</p><!-- .footer-copyright -->
+					<?php
+					// Query to get the latest posts
+					$args = array(
+						'posts_per_page' => 3, // Number of latest posts to display
+						'post_status'    => 'publish', // Only published posts
+					);
 
-			<?php
-			if (function_exists('the_privacy_policy_link')) {
-				the_privacy_policy_link('<p class="privacy-policy">', '</p>');
-			}
-			?>
+					$latest_posts = new WP_Query( $args );
 
-			<p class="powered-by-wordpress">
-				<a href="<?php echo esc_url(__('https://wordpress.org/', 'twentytwenty')); ?>">
-					<?php _e('Powered by WordPress', 'twentytwenty'); ?>
-				</a>
-			</p><!-- .powered-by-wordpress -->
+					// Check if we have posts
+					if ( $latest_posts->have_posts() ) :
+						// Loop through the posts
+						while ( $latest_posts->have_posts() ) : $latest_posts->the_post();
+					?>
+							<li>
+								<div class="post-info">
+									<a href="<?php the_permalink(); ?>" target="_blank" class="post-title"><?php the_title(); ?></a>
+									<a href="#" class="post-date float-right"><?php echo get_the_date(); ?></a>
+								</div>
+								<p><?php echo wp_trim_words( get_the_excerpt(), 20 ); ?></p>
+							</li>
+					<?php
+						endwhile;
+					endif;
 
-		</div><!-- .footer-credits -->
+					// Reset post data
+					wp_reset_postdata();
+					?>
 
-		<a class="to-the-top" href="#site-header">
-			<span class="to-the-top-long">
-				<?php
-				/* translators: %s: HTML character for up arrow. */
-				printf(__('To the top %s', 'twentytwenty'), '<span class="arrow" aria-hidden="true">&uarr;</span>');
-				?>
-			</span><!-- .to-the-top-long -->
-			<span class="to-the-top-short">
-				<?php
-				/* translators: %s: HTML character for up arrow. */
-				printf(__('Up %s', 'twentytwenty'), '<span class="arrow" aria-hidden="true">&uarr;</span>');
-				?>
-			</span><!-- .to-the-top-short -->
-		</a><!-- .to-the-top -->
-
-	</div><!-- .section-inner -->
-
+				</ul>
+			</div>
+		</div>
+	</div>
 </footer><!-- #site-footer -->
 
 <?php wp_footer(); ?>
 
 </body>
-
 </html>
+
+<style>
+	ul.timeline {
+    list-style-type: none;
+    position: relative;
+}
+ul.timeline:before {
+    content: ' ';
+    background: #d4d9df;
+    display: inline-block;
+    position: absolute;
+    left: 29px;
+    width: 2px;
+    height: 100%;
+    z-index: 400;
+}
+ul.timeline > li {
+    margin: 20px 0;
+    padding-left: 60px;
+}
+ul.timeline > li:before {
+    content: ' ';
+    background: white;
+    display: inline-block;
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid #22c0e8;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    z-index: 400;
+}
+
+/* Flex container to align title and date in the same row */
+.post-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-title {
+    display: block;
+    max-width: 80%; /* Adjust based on your layout */
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis */
+    width: 70%; /* Set a max width for the title */
+}
+
+.post-date {
+    font-size: 0.85em;
+}
+</style>
