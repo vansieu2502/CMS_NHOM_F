@@ -157,6 +157,83 @@ get_header();
     }
 }
 
+
+/* Tùy chỉnh tiêu đề của danh mục */
+
+
+.wp-block-categories-list {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.wp-block-categories-list li {
+    list-style: none;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+     color: #ff6347 !important; 
+}
+.wp-block-categories-list li a{
+	 color:#98bfe1 !important;
+}
+.wp-block-categories-list li::before {
+    content: "•";
+    color: #ffd700; /* Màu vàng cho dấu chấm */
+    font-size: 1.2em;
+    margin-right: 8px;
+}
+
+.wp-block-categories-list li:last-child {
+    border-bottom: none;
+}
+
+
+.widget-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 15px;
+}
+
+/* Tùy chỉnh danh sách danh mục */
+.widget_categories ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Kiểu dáng của từng mục danh mục */
+.widget_categories ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Biểu tượng tròn màu vàng trước mỗi danh mục */
+.widget_categories ul li:before {
+    content: '●';
+    color: #f2b01e; /* Màu vàng */
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+/* Kiểu dáng của liên kết danh mục */
+.widget_categories ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Đường kẻ dưới mỗi danh mục */
+.widget_categories ul li:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
 </style>
 
 <?php get_template_part( 'template-parts/footer-menus-widgets' ); ?>
